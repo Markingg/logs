@@ -13,17 +13,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>战力计算</title>
   <style type=text/css> 
-   body{color:#fff;}
-   body b{color:yellow !important;}
+   /*body{color:#fff;}
+   body b{color:yellow !important;}*/
   </style>
-  <script src='https://apps.bdimg.com/libs/jquery/1.7.2/jquery.min.js'></script>
+  <!-- <script src='https://apps.bdimg.com/libs/jquery/1.7.2/jquery.min.js'></script> -->
  </head>
  <body>
  <select id="setzs1"name='zs'><option id=0>武将㈠☜</option></select>
  <select id="setzs2"name='zs'><option id=0>武将㈡☜</option></select>
  <select id="setzs3"name='zs'><option id=0>武将㈢☜</option></select>
  <select id="setzs4"name='zs'><option id=0>武将㈣☜</option></select>
- <h3>预计战力: <b style=color:red>0</b> </h3>
+ <div id="chk"></div>
+ <h3>预计战力: <b style=color:red id=sell>0</b> </h3>
  <table width="648" border="0" cellpadding="0" cellspacing="0" id ='data' style='display:none;；width:486.00pt;border-collapse:collapse;table-layout:fixed;'>
    <col width="72" span="9" style='width:54.00pt;'/>
    <tr height="18" style='height:13.50pt;'>
@@ -1124,108 +1125,178 @@
  </body>
 
   <script type='text/javascript'> 
-jQuery(function($){
-  pngtit=pngData=new Array(8);
-  var table =$('table');
-  var _o = {};
-  var _tname = [];
-  var tr=table.find('tr').each(function(i,e){ 
-      //_o【i】 0将领序号，1将领名字，2~7战法
-      _o[i]=[i]; 
-      var td=$(e).find('td').each(function(j,f){
-               var _f = $(f).text();
-         _o[i].push(_f); 
-      }); 
-  });
-var setName = $('[name="zs"]');
-var setType = document.createElement('p'); 
-    setType.innerHTML='战法';  
-  o =_o;
-$.each(_o,function(i,e){
-  if(i==0){ 
-  var _name =e.slice(2); 
-  for(var j=0;j<_name.length;j++){
-    setType.innerHTML+=('<label><input name="'+(j+2)+'" type="checkbox" value="'+_name[j]+'" />'+_name[j].slice(0,1)+'</label>'); 
-  }
-  }else if(e.length==10){
-   if(i==34){
-    setName.append('<option id="-" disabled> ==紫== </option>');
-   }
-   if(i==67){
-    setName.append('<option id="-" disabled> ==金== </option>');
-   }
-      setName.append('<option id="'+e[0]+'"> '+e[1]+' </option>');
-  }
-}); 
- $('h3').before(setType); 
-//_min= Math.min.apply(null,d[0]) + Math.min.apply(null,d[1]) + Math.min.apply(null,d[2]) ;
-//_max= Math.max.apply(null,d[0]) + Math.max.apply(null,d[1]) + Math.max.apply(null,d[2]) ; 
-zsid=[],zstype=[];
-$('[name="zs"]').on('change',function(e){
-  zsid=[];
- $(':selected').each(function(i,e){ 
-   if($(e).attr('id')*1>=1){ 
-    zsid.push($(e).attr('id'));
-    //1
-    count(zsid,zstype); 
-   }else if(zsid.length==0){
-    $('h3 b').html('0');
-   }
- })
-});
-$(':checkbox').click(function(){  
-  if($(this).prop("checked")&&zstype.length==3){
-  
-  alert('战法最多选3项');return false
-  }
-});
-$(':checkbox').on('change',function(e){
- zstype=[];
- pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1. <b style="color:red">一个武将出征  预估战力*倍数 </b></p></dd><dd><p>2. <b style="color:red">2个武将及以上出征  预估战力*倍数*0.7</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐选一种加成高的战术</dd></dl></center><hr/>';
- $(':checkbox').each(function(i,e){
-  if($(e).prop("checked")){ 
-    zstype.push($(e).attr('name')); 
-      //2 
-    count(zsid,zstype);
-      pngWarp.innerHTML+='<img width="100%" height="auto"  src="'+pngtit+pngData[$(e).attr('name')]+'">';
+ function c(s){
+    return console.log(s);
+ }  
 
-  };
- })
-});
-
-pngWarp=document.createElement('h4');
-$('body').append(pngWarp);
 function count(zsid,zstype){
  //console.log(zsid,zstype)
  var _min=0,_max=0;
   if(zsid.length==0){
-    $('h3 b').html('0');
+    document.getElementById.innerHTML = '0';
   }
   else if(zsid.length>=1&&zstype.length>=1){
-	   //var
-	   idCountArr = []; 
-	   idCount = 0; 
-	   for(var _id=0;_id<zsid.length;_id++){  
-		 typeCountArr=[]; 
-		 for(var _typ=0;_typ<zstype.length;_typ++){  
-		  var id = zsid[_id]; 
-		  var type = zstype[_typ];
-		  typeCountArr.push(o[id][type]) 
-		 }
-		 
-		idCountArr.push(typeCountArr);
-		//_min =Math.min.apply(null,idCountArr[0]) + Math.min.apply(null,idCountArr[1]) + Math.min.apply(null,idCountArr[2]) + Math.min.apply(null,idCountArr[3]) ;
-		//_max =Math.max.apply(null,idCountArr[0]) + Math.max.apply(null,idCountArr[1]) + Math.max.apply(null,idCountArr[2])+ Math.max.apply(null,idCountArr[3]) ;
-		
-	  } 
-	  for(var minmax=0;minmax<idCountArr.length;minmax++){  
-		  _min+= Math.min.apply(null,idCountArr[minmax]) ;
-		  _max+= Math.max.apply(null,idCountArr[minmax]);
-	  }
-    $('h3 b').html(_min+' ~~~ '+_max);
+     //var
+     idCountArr = []; 
+     idCount = 0; 
+     for(var _id=0;_id<zsid.length;_id++){  
+       typeCountArr=[]; 
+       for(var _typ=0;_typ<zstype.length;_typ++){  
+        var id = zsid[_id]; 
+        var type = zstype[_typ];
+        typeCountArr.push(o[id][type]) 
+       }
+       
+      idCountArr.push(typeCountArr);
+      //_min =Math.min.apply(null,idCountArr[0]) + Math.min.apply(null,idCountArr[1]) + Math.min.apply(null,idCountArr[2]) + Math.min.apply(null,idCountArr[3]) ;
+      //_max =Math.max.apply(null,idCountArr[0]) + Math.max.apply(null,idCountArr[1]) + Math.max.apply(null,idCountArr[2])+ Math.max.apply(null,idCountArr[3]) ;
+      
+      } 
+    for(var minmax=0;minmax<idCountArr.length;minmax++){  
+      _min+= Math.min.apply(null,idCountArr[minmax]) ;
+      _max+= Math.max.apply(null,idCountArr[minmax]);
+    }
+   document.getElementById('sell').innerHTML= _min+' ~~~ '+_max;
   } 
 };
-});
+// 兼容IE8以下浏览器方法：
+if (!Array.prototype.forEach) {
+    Array.prototype.forEach = function(fun) {
+        for (var i = 0; i < this.length; i++) {
+            if (i in this) {
+                fun.call(arguments[1], this[i], i, this);
+            }
+        }
+    };
+}
+function addEvent(elem,evType,fn,useCapture){
+        if (elem.addEventListener) {
+            elem.addEventListener(evType,fn,useCapture);//DOM 2.0
+            return true;
+        }else if(elem.attachEvent){
+            var r = elem.attachEvent('on'+evType,fn); //IE5+
+            return r;
+        }else{
+            elem['on'+evType] = fn; //DOM 0
+        }
+    }
+//jQuery(function($){
+  pngtit=pngData=new Array(8);
+  var table =document.getElementsByTagName('table')[0];
+  var _o = [];
+  var _tname = [];
+  var otr=table.getElementsByTagName('tr'),tr=Array.prototype.slice.call(otr);
+      tr.forEach(function(e,i){ 
+        //_o【i】 0将领序号，1将领名字，2~7战法
+        _o[i]=[i];  
+        var otd=e.getElementsByTagName('td'),td=Array.prototype.slice.call(otd);
+        td.forEach(function(f,j){
+               var _f = f.innerText||f.textContent;
+               _o[i].push(_f); 
+        })
+      });
+
+var sell = document.getElementById('sell');
+var setName = document.getElementsByTagName('select');
+var setType = document.createElement('p'); 
+    setType.innerHTML='战法';  
+function _r(o,d,i){
+  for(var _i=0;_i<o.length;_i++){  
+      var _option = document.createElement('option'); 
+      if(i==34){
+        var _option3 = document.createElement('option'); 
+        _option3.innerText=_option.textContent=' ==紫== ';
+        _option3.id='-';
+        _option3.setAttribute('disabled','disabled');
+        o[_i].appendChild(_option3);
+     }
+     if(i==67){
+      var _option2 = document.createElement('option'); 
+      _option2.innerText=_option.textContent=' ==金== ';
+      _option2.id='-';
+      _option2.setAttribute('disabled','disabled');
+      o[_i].appendChild(_option2);
+     }
+    _option.id = d[0];
+    _option.innerText=_option.textContent=d[1];
+    o[_i].appendChild(_option);
+
+  }
+}
+o =_o;
+o=Array.prototype.slice.call(o);
+o.forEach(function(e,i){
+  if(i==0){ 
+    var _name =e.slice(2); 
+    for(var j=0;j<_name.length;j++){
+      setType.innerHTML+=('<label><input name="'+(j+2)+'" type="checkbox" value="'+_name[j]+'" />'+_name[j].slice(0,1)+'</label>'); 
+    }
+  }else if(e.length==10){
+    _r(setName,e,i); 
+   }
+});  
+var ck=document.getElementById('chk');ck.appendChild(setType);
+zsid=[],zstype=[];
+var selects = document.getElementsByTagName("select");
+var checks = document.getElementsByTagName("input");
+    // for (var i = 0; i < more.length; i++) { //for循环是立即执行，for循环内的事件不立即执行
+    //       more[i].onclick = function (n) { //n为形参
+    //           return function () {
+    //               alert(n); //把与n相关的操作必须写在return function（）{}之内才能正常执行
+    //           }
+    //      }(i)//i为实参(把i传进去，使事件内部立即执行)
+//}
+    for (var i = 0; i < selects.length; i++) { //for循环是立即执行，for循环内的事件不立即执行
+          addEvent(selects[i],'change',function(){
+             zsid=[]; 
+             selectsArr=Array.prototype.slice.call(selects);
+             selectsArr.forEach(function(e,i){ 
+              var index=e.selectedIndex ;
+              var sval =e.options[index].value;
+             // var sname=e.options[index].text;
+              if(index*1>=1){ 
+                 zsid.push(index); 
+                 //1
+                 count(zsid,zstype); 
+              }else if(zsid.length==0){
+                sell.innerHTML = '0';
+              } 
+             }); 
+          });
+    }
+
+//cbtn click
+for (var i = 0; i < checks.length; i++) { 
+   addEvent(checks[i],'click',function(){
+        // .checked
+        c(this.checked,zstype.length)
+        if(this.checked&&zstype.length==3){
+          alert('战法最多选3项');
+          return false;
+        }
+   });
+
+} 
+//cbtn change
+for (var i = 0; i < checks.length; i++) { 
+   addEvent(checks[i],'click',function(){
+     zstype=[];
+     pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1. <b style="color:red">一个武将出征  预估战力*倍数 </b></p></dd><dd><p>2. <b style="color:red">2个武将及以上出征  预估战力*倍数*0.7</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐选一种加成高的战术</dd></dl></center><hr/>';
+      checksArr=Array.prototype.slice.call(checks);
+      checksArr.forEach(function(e,i){
+        if(e.checked){ 
+            zstype.push(e.name);
+             //2
+            count(zsid,zstype);
+            pngWarp.innerHTML+='<img width="100%" height="auto"  src="'+pngtit+pngData[e.name]+'">';
+
+        }
+      });
+   });
+}  
+
+pngWarp=document.createElement('h4');
+document.body.appendChild(pngWarp);
  </script>
  <script>
 
