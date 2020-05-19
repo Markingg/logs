@@ -1267,12 +1267,14 @@ var checks = document.getElementsByTagName("input");
 
 //cbtn click
 for (var i = 0; i < checks.length; i++) { 
-   addEvent(checks[i],'click',function(){
+   addEvent(checks[i],'click',function(e){
         // .checked
         c(this.checked,zstype.length)
-        if(this.checked&&zstype.length==3){
-          alert('战法最多选3项');
-          return false;
+        if(this.checked&&zstype.length==2){
+          alert('战法别选太多，优选2项最高加成的就行 ˘ω˘'); 
+//           e.preventDefault();
+// 　　      e.stopPropagation();
+//           return false;
         }
    });
 
