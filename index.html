@@ -15,6 +15,7 @@
   <style type=text/css> 
   body{color:#fff;}
   body b{color:yellow !important;}
+  select{margin-top: 45px}
   </style>
   <!-- <script src='https://apps.bdimg.com/libs/jquery/1.7.2/jquery.min.js'></script> -->
  </head>
@@ -1130,9 +1131,9 @@
  }  
 
 function count(zsid,zstype){
- //console.log(zsid,zstype)
+ //  console.log(zsid,zstype,'=-----');
  var _min=0,_max=0;
-  if(zsid.length==0){
+  if(zsid.length==0||zstype.length==0){
     document.getElementById.innerHTML = '0';
   }
   else if(zsid.length>=1&&zstype.length>=1){
@@ -1252,10 +1253,12 @@ var checks = document.getElementsByTagName("input");
              zsid=[]; 
              selectsArr=Array.prototype.slice.call(selects);
              selectsArr.forEach(function(e,i){ 
-              var index=e.selectedIndex ;
+              var sindex=e.selectedIndex ; 
+              var index =e.options[sindex].id;
               var sval =e.options[index].value;
              // var sname=e.options[index].text;
               if(index*1>=1){ 
+                c(index)
                  zsid.push(index); 
                  //1
                  count(zsid,zstype); 
@@ -1269,8 +1272,10 @@ var checks = document.getElementsByTagName("input");
 //cbtn click
 for (var i = 0; i < checks.length; i++) { 
    addEvent(checks[i],'click',function(e){
-        // .checked
-        c(this.checked,zstype.length)
+        // .checked 
+        if(zstype.length==1){
+          sell.innerHTML = "0";
+        }
         if(this.checked&&zstype.length==2){
           alert('战法别选太多，优选2项最高加成的就行 ˘ω˘'); 
 //           e.preventDefault();
@@ -1282,18 +1287,21 @@ for (var i = 0; i < checks.length; i++) {
 } 
 //cbtn change
 for (var i = 0; i < checks.length; i++) { 
-   addEvent(checks[i],'click',function(){
+   addEvent(checks[i],'change',function(){
      zstype=[];
-     pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1. <b style="color:red">一个武将出征  预估战力*倍数 </b></p></dd><dd><p>2. <b style="color:red">2个武将及以上出征  预估战力*倍数*0.7</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐选一种加成高的战术</dd></dl></center><hr/>';
+     pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1、<b style="color:red">一个武将出征  预估战力*倍数 </b></p></dd><dd><p>2、<b style="color:red">两个武将及以上出征  预估战力*倍数*0.7</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐选一种加成高的战术</dd></dl></center><hr/>';
       checksArr=Array.prototype.slice.call(checks);
       checksArr.forEach(function(e,i){
-        if(e.checked){ 
-            zstype.push(e.name);
-             //2
-            count(zsid,zstype);
-            pngWarp.innerHTML+='<img width="100%" height="auto"  src="'+pngtit+pngData[e.name]+'">';
+        //if(e.checked){ 
+            
+            if(e.checked){
+                //2
+                zstype.push(e.name);
+                count(zsid,zstype);
+                pngWarp.innerHTML+='<img width="100%" height="auto"  src="'+pngtit+pngData[e.name]+'">';
+            }
 
-        }
+        //}
       });
    });
 }  
