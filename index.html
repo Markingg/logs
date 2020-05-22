@@ -1297,7 +1297,7 @@ for (var i = 0; i < checks.length; i++) {
 for (var i = 0; i < checks.length; i++) { 
    addEvent(checks[i],'change',function(){
      zstype=[];
-     pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1、<b style="color:red">一个武将出征  预估战力*倍数 </b></p></dd><dd><p>2、<b style="color:red">两个武将及以上出征  预估战力*倍数*0.7</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐选一种加成高的战术</dd></dl></center><hr/>';
+     pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1、<b style="color:red">一个武将出征  预估战力*倍数 </b></p></dd><dd><p>2、<b style="color:red">两个武将及以上出征  预估战力*倍数*0.6</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐选一种加成高的战术</dd></dl></center><hr/>';
       checksArr=Array.prototype.slice.call(checks);
       checksArr.forEach(function(e,i){
         //if(e.checked){ 
