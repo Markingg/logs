@@ -1217,21 +1217,6 @@ function _r(sname,d,i){
 	//c('090ikju')
   for(var _i=0;_i<sname.length;_i++){  
       var _option = document.createElement('option'); 
-          _option.id = d[0];
-          _option.innerText=_option.textContent=d[1];
-          _option.dataset['arr'] = o[i]; 
-      if(i<34){
-             // console.log(i+' - 1?',_option) 
-             _option.style.color='rgb(114, 180, 236)';
-             _option.dataset.type = '1';
-      }else if(i<67&&i!==34){
-      	      _option.dataset.type = '2';
-              _option.style.color='#f0f';
-      }else if(i>67){
-              //  console.log(i+'>?67',_option)
-               _option.dataset.type = '3';
-               _option.style.color='#dede9e';
-      }  
 
       if(i==34){
         var _option3 = document.createElement('option'); 
@@ -1240,19 +1225,37 @@ function _r(sname,d,i){
         _option3.setAttribute('disabled','disabled'); 
         //_option =  _option3;
          _option3.dataset.arr="-1,-,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ";
-        sname[_i].appendChild(_option3);
-     }else if(i==67){
+        sname[_i].appendChild(_option3); 
+     }
+     if(i==67){
       var _option2 = document.createElement('option'); 
       _option2.dataset.arr="-1,-,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ";
       _option2.innerText=_option.textContent=' ==金== ';
       _option2.id='-';
       _option2.setAttribute('disabled','disabled');
      // _option =  _option2;
-      sname[_i].appendChild(_option2);
-     }else{ 
-      sname[_i].appendChild(_option);
+      sname[_i].appendChild(_option2); 
      }
+      
 
+      if(i<34){
+             // console.log(i+' - 1?',_option) 
+             _option.style.color='rgb(114, 180, 236)';
+             _option.dataset.type = '1';
+      }else if(i<67){
+      	      _option.dataset.type = '2';
+              _option.style.color='#f0f';
+      }else{
+              //  console.log(i+'>?67',_option)
+               _option.dataset.type = '3';
+               _option.style.color='#dede9e';
+      }  
+
+
+          _option.id = d[0];
+          _option.innerText=_option.textContent=d[1];
+          _option.dataset['arr'] = o[i]; 
+          sname[_i].appendChild(_option); 
     
 
   }
