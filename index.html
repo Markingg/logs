@@ -17,6 +17,8 @@
   body{color:#fff;}
   body b{color:yellow !important;}
   #chk{margin-top: 45px}
+  dl ,dl b,dd p,dd p b{font-size: 12px;}
+  dt{font-size: 16px}
   </style>
   <!-- <script src='https://apps.bdimg.com/libs/jquery/1.7.2/jquery.min.js'></script> -->
  </head>
@@ -1446,7 +1448,7 @@ for (var i = 0; i < checks.length; i++) {
    	//console.log(11111)
      zstype=[];
      zsid =[]; //重置武将
-     pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1、<b style="color:red">一个武将出征 = (预估战力*倍数) </b></p></dd><dd><p>2、<b style="color:red">两个武将及以上出征 = (最低战力*武将个数*倍数)</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐优选一种加成高的战术出征<br/>（特别提醒：每次出征武将战力会波动 因此计算会有误差 仅供查考）</dd></dl></center><hr/>';
+     pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1、<b style="color:red">单武将出征 = (预估战力*加成倍数) </b></p></dd><dd><p>2、<b style="color:red">多武将出征 = (最低战力*武将数*加成倍数)</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐优选一种加成高的战术出征<br/>（特别提醒：每次出征武将战力会波动 计算会有误差 结果仅供查考）</dd></dl></center><hr/>';
       checksArr=Array.prototype.slice.call(checks);
       checksArr.forEach(function(e,i){
         //if(e.checked){ 
