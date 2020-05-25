@@ -1141,12 +1141,14 @@
 
 function count(zsid,zstype,bei){
    //console.log(zsid,zstype,'=-----');
- var _min=0,_max=0;
+ var _min=0,_max=0,_beiMin,_beiMax,_tCArr=[];
+
+  //没有选择武将和战法
   if(zsid.length==0||zstype.length==0){
     document.getElementById('sell').innerHTML = '0';
   }
   else if(zsid.length>=1&&zstype.length>=1){
-     //var
+  	 //var
      idCountArr = []; 
      idCount = 0; 
      for(var _id=0;_id<zsid.length;_id++){  
@@ -1157,16 +1159,50 @@ function count(zsid,zstype,bei){
         typeCountArr.push(o[id][type]) 
        }
        
-      idCountArr.push(typeCountArr);
-      //_min =Math.min.apply(null,idCountArr[0]) + Math.min.apply(null,idCountArr[1]) + Math.min.apply(null,idCountArr[2]) + Math.min.apply(null,idCountArr[3]) ;
-      //_max =Math.max.apply(null,idCountArr[0]) + Math.max.apply(null,idCountArr[1]) + Math.max.apply(null,idCountArr[2])+ Math.max.apply(null,idCountArr[3]) ;
-      
+        idCountArr.push(typeCountArr); 
       } 
-    for(var minmax=0;minmax<idCountArr.length;minmax++){  
-      _min+= Math.min.apply(null,idCountArr[minmax]) ;
-      _max+= Math.max.apply(null,idCountArr[minmax]);
+
+    // for(var minmax=0;minmax<idCountArr.length;minmax++){  
+    //   _min+= Math.min.apply(null,idCountArr[minmax]) ;
+    //   _max+= Math.max.apply(null,idCountArr[minmax]);
+    // }
+    //  document.getElementById('sell').innerHTML= (bei?bei*_min:_min)+' ~~~ '+(bei?bei*_max:_max);
+   
+   //取最大 最小值计算
+    for (var m = idCountArr.length - 1; m >= 0; m--) { 
+    	for (var n = idCountArr[m].length - 1; n >= 0; n--) {
+    	  _tCArr.push(idCountArr[m][n]); 
+        }
+    } 
+    
+    //一个战力
+    if(_tCArr.length==1){
+      _min = _max =  Math.max.apply(null,_tCArr);	
+    }else{
+     _min = Math.min.apply(null,_tCArr);
+     _max =  Math.max.apply(null,_tCArr);
     }
-   document.getElementById('sell').innerHTML= (bei?bei*_min:_min)+' ~~~ '+(bei?bei*_max:_max);
+   // console.log(_tCArr,_max, _min,'@!!!!!!!!!')
+    
+    //一个倍数 
+    if(bei==undefined||bei&&bei.length<=1){
+
+    	 _beiMin = _beiMax = bei&&bei[0]||1;
+    }else if(bei&&bei.length>1){
+    	//多个i倍
+    	_beiMin = Math.min.apply(null,bei);
+    	_beiMax = Math.max.apply(null,bei);
+
+    }
+     
+     var _len = idCountArr.length;
+     if(_beiMin!==1||_min!==1){
+          document.getElementById('sell').innerHTML= (_len==1?(_beiMin*_min):(_beiMin*_min*_len))+' ~~~ '+(_len==1?(_beiMax*_max):(_beiMax*_max*_len));
+ 
+     }else{
+     	   console.log(_beiMin,_min,'bbbbbbbb')
+           document.getElementById('sell').innerHTML= (_len==1?(_beiMax*_max):(_beiMax*_max*_len));
+     };
   } 
 };
 // 兼容IE8以下浏览器方法：
@@ -1298,7 +1334,17 @@ var btns = document.getElementsByTagName("button");
                // c(index)
                  zsid.push(index); 
                  //1
-                 count(zsid,zstype); 
+                 //count(zsid,zstype); 
+                   stepArr =[];
+                     var btns =document.getElementsByTagName('button');
+				    for (var j = 0; j < btns.length; j++) { 
+				            if(btns[j].dataset.step*1)
+					 		       stepArr.push(btns[j].dataset.step);
+						 
+				     } 
+
+				    count(zsid,zstype,stepArr);
+  
               }else if(zsid.length==0){
                 sell.innerHTML = '0';
               } 
@@ -1309,6 +1355,7 @@ var btns = document.getElementsByTagName("button");
 //cbtn click
 for (var i = 0; i < checks.length; i++) { 
    addEvent(checks[i],'click',function(e){
+
         // .checked  
         if(zstype.length==1){
           sell.innerHTML = "0";
@@ -1318,6 +1365,11 @@ for (var i = 0; i < checks.length; i++) {
 //           e.preventDefault();
 // 　　      e.stopPropagation();
 //           return false;
+        }
+        var btns =document.getElementsByTagName('button');
+        for (var i = btns.length - 1; i >= 0; i--) {
+        	btns[i].style.color='black'
+        	btns[i].dataset.step=0;
         }
    });
 
@@ -1394,7 +1446,7 @@ for (var i = 0; i < checks.length; i++) {
    	//console.log(11111)
      zstype=[];
      zsid =[]; //重置武将
-     pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1、<b style="color:red">一个武将出征  预估战力*倍数 </b></p></dd><dd><p>2、<b style="color:red">两个武将及以上出征  预估战力*倍数*0.6</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐选一种加成高的战术</dd></dl></center><hr/>';
+     pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1、<b style="color:red">一个武将出征 = (预估战力*倍数) </b></p></dd><dd><p>2、<b style="color:red">两个武将及以上出征 = (最低战力*武将个数*倍数)</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐优选一种加成高的战术出征<br/>（特别提醒：每次出征武将战力会波动 因此计算会有误差 仅供查考）</dd></dl></center><hr/>';
       checksArr=Array.prototype.slice.call(checks);
       checksArr.forEach(function(e,i){
         //if(e.checked){ 
@@ -1421,10 +1473,30 @@ for (var i = 0; i < checks.length; i++) {
 }  
 
 //button jiacheng
+stepArr=[];
 for (var i = 0; i < btns.length; i++) { 
+   var setp = '';	 
    addEvent(btns[i],'click',function(e){ 
-         count(zsid,zstype,this.name);
+        //加成战力 取最低最高[min.max]
+        // count(zsid,zstype,this.name);
+        if(this.dataset.step*1){
+        	this.dataset.step =0;
+        	this.style.color = 'black';
+        }else{	        	
+	        this.dataset.step = this.name;
+	        this.style.color = 'yellow';
+        }
+       
+        stepArr =[];
+        for (var j = 0; j < btns.length; j++) { 
+            if(btns[j].dataset.step*1)
+	 		       stepArr.push(btns[j].dataset.step);
+		 
+        } 
+
+        count(zsid,zstype,stepArr);
    });
+    
 
 } 
 pngWarp=document.createElement('h4');
