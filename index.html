@@ -1448,7 +1448,7 @@ for (var i = 0; i < checks.length; i++) {
    	//console.log(11111)
      zstype=[];
      zsid =[]; //重置武将
-     pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1、<b style="color:red">单武将出征 = (预估战力*加成倍数) </b></p></dd><dd><p>2、<b style="color:red">多武将出征 = (最低战力*武将数*加成倍数)</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐优选一种加成高的战术出征<br/>（特别提醒：每次出征武将战力会波动 计算会有误差 结果仅供查考）</dd></dl></center><hr/>';
+     pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1、<b style="color:red">单武将出征 = (预估战力*加成倍数) </b></p></dd><dd><p>2、<b style="color:red">多武将出征 = (最低战力*武将数*加成倍数)</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐优选一种加成高的战术出征<br/>（PS：每次出征武将战力会波动 计算会有误差 结果仅供查考）</dd></dl></center><hr/>';
       checksArr=Array.prototype.slice.call(checks);
       checksArr.forEach(function(e,i){
         //if(e.checked){ 
@@ -1502,7 +1502,7 @@ for (var i = 0; i < btns.length; i++) {
 
 } 
 pngWarp=document.createElement('h4');
-pngWarp.innerHTML = '<b>1.02优化：勾选战法 提示优选武将图、武将将按照当前战法显示出详情战力'
+pngWarp.innerHTML = '<b style="font-size:14px">v1.02优化：勾选战法 提示优选武将图、武将将按照当前战法显示出详情战力';
 document.body.appendChild(pngWarp);
  </script>
  <script>
