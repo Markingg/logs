@@ -1143,7 +1143,7 @@
 
 function count(zsid,zstype,bei){
    //console.log(zsid,zstype,'=-----');
- var _min=0,_max=0,_beiMin,_beiMax,_tCArr=[];
+ var _min1=0,_max1=0,_min=0,_max=0,_beiMin,_beiMax;_tCArr1=[];_tCArr=[];
 
   //没有选择武将和战法
   if(zsid.length==0||zstype.length==0){
@@ -1173,12 +1173,16 @@ function count(zsid,zstype,bei){
    //取最大 最小值计算
    var allCount = 0;
     for (var m = idCountArr.length - 1; m >= 0; m--) { 
+    	   _tCArr1.push(idCountArr[m]); 
     	for (var n = idCountArr[m].length - 1; n >= 0; n--) {
     	  _tCArr.push(idCountArr[m][n]); 
     	  allCount+= idCountArr[m][n]*1||0; 
         }
     } 
-    
+     for (var j = _tCArr1.length - 1; j >= 0; j--) { 
+    	  _min1+=Math.min.apply(null,_tCArr1[j])*1;
+    	  _max1+= Math.max.apply(null,_tCArr1[j])*1;
+    }  
     //一个战力
     if(_tCArr.length==1){
       _min = _max =  Math.max.apply(null,_tCArr);	
@@ -1200,13 +1204,22 @@ function count(zsid,zstype,bei){
     }
      
      var _len = idCountArr.length,_minCount,_maxCount,x  = _min>10000?1.5:_min>7500?1.7:_min>5000?2:2.5; 
-     if(_beiMin!==1||_min!==1){
-     	   _minCount =  (_len==1?(_beiMin*allCount):(_beiMin*allCount/x));
+     if(zstype.length>1){
+     	console.log('c1111111')
+ 		   _minCount =  (_len==1?(_beiMin*_min1):(_beiMin*_min1/x));
+     	   _maxCount =  (_len==1?(_beiMax*_max1):(_beiMax*_max1/x));
+          document.getElementById('sell').innerHTML=_minCount.toFixed(0)+' ~~~ '+_maxCount.toFixed(0);
+     }else if(_beiMin==1){
+     		console.log('c22222',_beiMin,_min) 
+     		document.getElementById('sell').innerHTML= _beiMax*allCount;
+     	   
+ 
+     } else{ 
+     		console.log('c333333',_beiMin,_min)
+     		_minCount =  (_len==1?(_beiMin*allCount):(_beiMin*allCount/x));
      	   _maxCount =  (_len==1?(_beiMax*allCount):(_beiMax*allCount/x));
           document.getElementById('sell').innerHTML=_minCount.toFixed(0)+' ~~~ '+_maxCount.toFixed(0);
- 
-     }else{ 
-           document.getElementById('sell').innerHTML= _beiMax*allCount;
+          
      };
   } 
 };
