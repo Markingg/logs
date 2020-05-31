@@ -1171,9 +1171,11 @@ function count(zsid,zstype,bei){
     //  document.getElementById('sell').innerHTML= (bei?bei*_min:_min)+' ~~~ '+(bei?bei*_max:_max);
    
    //取最大 最小值计算
+   var allCount = 0;
     for (var m = idCountArr.length - 1; m >= 0; m--) { 
     	for (var n = idCountArr[m].length - 1; n >= 0; n--) {
     	  _tCArr.push(idCountArr[m][n]); 
+    	  allCount+= idCountArr[m][n]*1||0; 
         }
     } 
     
@@ -1197,13 +1199,14 @@ function count(zsid,zstype,bei){
 
     }
      
-     var _len = idCountArr.length;
+     var _len = idCountArr.length,_minCount,_maxCount,x  = _min>10000?1.5:_min>7500?1.7:_min>5000?2:2.5; 
      if(_beiMin!==1||_min!==1){
-          document.getElementById('sell').innerHTML= (_len==1?(_beiMin*_min):(_beiMin*_min*_len))+' ~~~ '+(_len==1?(_beiMax*_max):(_beiMax*_max*_len));
+     	   _minCount =  (_len==1?(_beiMin*allCount):(_beiMin*allCount/x));
+     	   _maxCount =  (_len==1?(_beiMax*allCount):(_beiMax*allCount/x));
+          document.getElementById('sell').innerHTML=_minCount.toFixed(0)+' ~~~ '+_maxCount.toFixed(0);
  
-     }else{
-     	   console.log(_beiMin,_min,'bbbbbbbb')
-           document.getElementById('sell').innerHTML= (_len==1?(_beiMax*_max):(_beiMax*_max*_len));
+     }else{ 
+           document.getElementById('sell').innerHTML= _beiMax*allCount;
      };
   } 
 };
