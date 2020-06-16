@@ -12,31 +12,93 @@
   <meta http-equiv="Cache-Control" content="no-transform" /> 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>战力计算Ver1.02</title>
+  <title>战力计算Ver1.03</title>
   <style type=text/css> 
-  body{color:#fff;}
+  body{color:#fff;-background: #000;}
   body b{color:yellow !important;}
-  #chk{margin-top: 45px}
+  #chk{-margin-top: 45px}
   dl ,dl b,dd p,dd p b{font-size: 12px;}
-  dt{font-size: 16px}
+  dl{display: inline-block;border: 1px #000 solid;margin-left: -1px;}
+  dt{font-size: 16px;border-bottom:2px #000 solid ;}
+  dd{    margin-inline-start: 4px;}
   </style>
   <!-- <script src='https://apps.bdimg.com/libs/jquery/1.7.2/jquery.min.js'></script> -->
  </head>
  <body>
-
- <div id="chk"></div>
- <div id="setzs">
-	 <select id="setzs1"name='zs'><option data-arr='0,-,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ' id=0>武将㈠☜</option></select>
-	 <select id="setzs2"name='zs'><option data-arr='0,-,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 'id=0>武将㈡☜</option></select>
-	 <select id="setzs3"name='zs'><option data-arr='0,-,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 'id=0>武将㈢☜</option></select>
-	 <select id="setzs4"name='zs'><option data-arr='0,-,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 'id=0>武将㈣☜</option></select>
-</div>
- <h3>预计战力: <b style=color:red id=sell>0</b> </h3>
- <h4 id='jiachengh4'style="display: none;">加成倍数 ：<button name="2">2倍</button>
+<h4 id='@zf'style="—display: none;margin:0;"><select data-ind=0 name="zf">
+				<option data-arr='1' >选择加成</option> 
+				<option data-arr='2' >铁·2倍</option>
+				<option data-arr='2' >智·2倍</option>
+				<option data-arr='2' >诡·2倍</option>
+				<option data-arr='2' >无·2倍</option>
+				<option data-arr='2' >攻·2倍</option>
+				<option data-arr='2' >集·2倍</option>
+				<option data-arr='2' >远·2倍</option>
+				<option data-arr='2' >水·2倍</option>
+			  </select>
+			  <select data-ind=1 name="zf">
+				<option data-arr='1' >选择加成</option> 
+				<option data-arr='2.25' >铁·2.25倍</option>
+				<option data-arr='2.25' >智·2.25倍</option>
+				<option data-arr='2.25' >诡·2.25倍</option>
+				<option data-arr='2.25' >无·2.25倍</option>
+				<option data-arr='2.25' >攻·2.25倍</option>
+				<option data-arr='2.25' >集·2.25倍</option>
+				<option data-arr='2.25' >远·2.25倍</option>
+				<option data-arr='2.25' >水·2.25倍</option>
+			  </select>
+			  <select data-ind=2 name="zf">
+				<option data-arr='1' >选择加成</option> 
+				<option data-arr='2.5' >铁·2.5倍</option>
+				<option data-arr='2.5' >智·2.5倍</option>
+				<option data-arr='2.5' >诡·2.5倍</option>
+				<option data-arr='2.5' >无·2.5倍</option>
+				<option data-arr='2.5' >攻·2.5倍</option>
+				<option data-arr='2.5' >集·2.5倍</option>
+				<option data-arr='2.5' >远·2.5倍</option>
+				<option data-arr='2.5' >水·2.5倍</option>
+			  </select>
+			  <select data-ind=3 name="zf">  
+                <option data-arr='1' >选择加成</option> 
+				<option data-arr='2.75' >铁·2.75倍</option>
+				<option data-arr='2.75' >智·2.75倍</option>
+				<option data-arr='2.75' >诡·2.75倍</option>
+				<option data-arr='2.75' >无·2.75倍</option>
+				<option data-arr='2.75' >攻·2.75倍</option>
+				<option data-arr='2.75' >集·2.75倍</option>
+				<option data-arr='2.75' >远·2.75倍</option>
+				<option data-arr='2.75' >水·2.75倍</option>
+			  </select> 
+			  <!-- <button name="2">2倍</button>
 			  <button name="2.25">2.25倍</button>
 			  <button name="2.5">2.5倍</button>
-			  <button name="2.75">2.75倍</button>
+			  <button name="2.75">2.75倍</button> -->
  </h4>
+ <div id="chk" style="display: none;"></div>
+ <div id="setzs" -style="display: none;">
+	 武将排序：
+		<label>	<input type='radio' value='2' name=zsradio />铁 </label> |
+		<label><input type='radio' value='3' name=zsradio /> 智</label> |
+		<label><input type='radio' value='4' name=zsradio /> 诡</label> |
+		<label><input type='radio' value='5' name=zsradio /> 无</label> |
+		<label><input type='radio' value='6' name=zsradio /> 攻</label> |
+		<label><input type='radio' value='7' name=zsradio /> 集</label> |
+		<label><input type='radio' value='8' name=zsradio />远 </label> |
+		<label><input type='radio' value='8' name=zsradio /> 水</label> 
+	    <br> <br>
+		<span id='zslist'> 
+			<select id="setzs1"name='zs'><option data-arr='0,-,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ' id=0>选择出征武将</option></select>
+		</span>
+	 <button id='addzs1' onclick='addzs(1)'>+1武将</button>
+
+	 <button id='addzs2' style='display:none' onclick='addzs(0)'>-1武将</button>
+	
+	 <!-- <select id="setzs2"name='zs'><option data-arr='0,-,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 'id=0>武将㈡☜</option></select>
+	 <select id="setzs3"name='zs'><option data-arr='0,-,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 'id=0>武将㈢☜</option></select>
+	 <select id="setzs4"name='zs'><option data-arr='0,-,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 'id=0>武将㈣☜</option></select> -->
+</div>
+ <h3><span id='selltxt'>预估战力: </span><b style=color:red id=sell>0</b> </h3>
+ 
  <table width="648" border="0" cellpadding="0" cellspacing="0" id ='data' style='display:none;；width:486.00pt;border-collapse:collapse;table-layout:fixed;'>
    <col width="72" span="9" style='width:54.00pt;'/>
    <tr height="18" style='height:13.50pt;'>
@@ -1203,7 +1265,7 @@ function count(zsid,zstype,bei){
 
     }
      
-     var _len = idCountArr.length,_minCount,_maxCount,x  = _min>10000?1.5:_min>7500?1.7:_min>5000?2:2.5; 
+     var _len = idCountArr.length,_minCount,_maxCount,x  = _min>11400?1.5:_min>9700?1.6:_min>7000?1.7:_min>5000?1.8:_min>4800?2.1:2.4; 
      if(zstype.length>1){
      	console.log('c1111111')
  		   _minCount =  (_len==1?(_beiMin*_min1):(_beiMin*_min1/x));
@@ -1233,8 +1295,16 @@ if (!Array.prototype.forEach) {
         }
     };
 }
-function addEvent(elem,evType,fn,useCapture){
-        if (elem.addEventListener) {
+function addEvent(elem,evType,fn,useCapture,param=''){
+      var fn = fn; 
+		   if(param)
+			{
+			   fn = function(e)
+			   {
+				 fun.call(this, param);  //继承监听函数,并传入参数以初始化;
+			   }
+			}
+		if (elem.addEventListener) {
             elem.addEventListener(evType,fn,useCapture);//DOM 2.0
             return true;
         }else if(elem.attachEvent){
@@ -1248,6 +1318,7 @@ function addEvent(elem,evType,fn,useCapture){
 pngtit='http://file.ebookset.cn/?/images/2020/05/29/',
 pngData =['','','kohyle58x5/2.jpg','DPnlqVyadQ/3.jpg','AfkoPzLcHZ/4.jpg','VDQfnYHYfu/5.jpg','KPPg7I4GbY/6.jpg','zvqhgqqoGw/7.jpg','h6V9gkA1D3/8.jpg','Ddrs4Rf4Ux/9.jpg'];
   var table =document.getElementsByTagName('table')[0];
+  var radio =document.getElementsByName('zsradio');
   var _o = [];
   var _tname = [];
   var otr=table.getElementsByTagName('tr'),tr=Array.prototype.slice.call(otr);
@@ -1262,16 +1333,34 @@ pngData =['','','kohyle58x5/2.jpg','DPnlqVyadQ/3.jpg','AfkoPzLcHZ/4.jpg','VDQfnY
       });
 
 var sell = document.getElementById('sell');
+var selectsAll = document.getElementsByTagName("select");
+	szs=selects=[];
+	szf=[];
+for (var i=0;i<selectsAll.length ;i++ )
+{
+	if(selectsAll[i].name=='zf'){
+		szf.push(selectsAll[i])
+	}else{
+		selects.push(selectsAll[i])
+	}
+}
 var jiacheng = document.getElementById('jiachengh4');
-var setName = document.getElementsByTagName('select');
+var setName = szs;
 var setType = document.createElement('p'); 
     setType.innerHTML='战法';  
+var flag =0;
 function _r(sname,d,i){
 
-	//c('090ikju')
+	if(flag){
+	//  return;
+	}else{
+		flag++; 
+	}
+
+  //*<!--
   for(var _i=0;_i<sname.length;_i++){  
       var _option = document.createElement('option'); 
-
+  
       if(i==34){
         var _option3 = document.createElement('option'); 
         _option3.innerText=_option.textContent=' ==紫== ';
@@ -1291,7 +1380,7 @@ function _r(sname,d,i){
       sname[_i].appendChild(_option2); 
      }
       
-
+  
       if(i<34){
              // console.log(i+' - 1?',_option) 
              _option.style.color='rgb(114, 180, 236)';
@@ -1304,15 +1393,16 @@ function _r(sname,d,i){
                _option.dataset.type = '3';
                _option.style.color='#dede9e';
       }  
-
-
+  
+  
           _option.id = d[0];
           _option.innerText=_option.textContent=d[1];
           _option.dataset['arr'] = o[i]; 
           sname[_i].appendChild(_option); 
-    
+ 
+  } 
+   // -->  */ 
 
-  }
 }
 o =_o;
 
@@ -1329,7 +1419,6 @@ o.forEach(function(e,i){
 });  
 var ck=document.getElementById('chk');ck.appendChild(setType);
 zsid=[],zstype=[];
-var selects = document.getElementsByTagName("select");
 var checks = document.getElementsByTagName("input");
 var btns = document.getElementsByTagName("button");
     // for (var i = 0; i < more.length; i++) { //for循环是立即执行，for循环内的事件不立即执行
@@ -1339,41 +1428,22 @@ var btns = document.getElementsByTagName("button");
     //           }
     //      }(i)//i为实参(把i传进去，使事件内部立即执行)
 //}
-    for (var i = 0; i < selects.length; i++) { //for循环是立即执行，for循环内的事件不立即执行
-          addEvent(selects[i],'change',function(){
-             zsid=[]; 
-             selectsArr=Array.prototype.slice.call(selects);
-             selectsArr.forEach(function(e,i){ 
-              var sindex=e.selectedIndex ; 
-              var index =e.options[sindex].id;
-              var sval =e.options[index].value;
-             // var sname=e.options[index].text;
-              if(index*1>=1){ 
-               // c(index)
-                 zsid.push(index); 
-                 //1
-                 //count(zsid,zstype); 
-                   stepArr =[];
-                     var btns =document.getElementsByTagName('button');
-				    for (var j = 0; j < btns.length; j++) { 
-				            if(btns[j].dataset.step*1)
-					 		       stepArr.push(btns[j].dataset.step);
-						 
-				     } 
-
-				    count(zsid,zstype,stepArr);
-  
-              }else if(zsid.length==0){
-                sell.innerHTML = '0';
-              } 
-             }); 
-          });
-    }
+   
+    currentzf = [0,0,0,0],currentzfO = {};
+    for (var i = 0; i < selectsAll.length; i++) { //for循环是立即执行，for循环内的事件不立即执行
+          addEvent(selectsAll[i],'change',fnc);
+        }
 
 //cbtn click
-for (var i = 0; i < checks.length; i++) { 
-   addEvent(checks[i],'click',function(e){
 
+/*  
+for (var i = 0; i < checks.length; i++) { 
+	checks[i].onclick =  function a(){
+	   console.log(arguments);
+	}
+ addEvent(checks[i],'click',function(e){
+             console.log(arguments)
+			  return;
         // .checked  
         if(zstype.length==1){
           sell.innerHTML = "0";
@@ -1391,11 +1461,115 @@ for (var i = 0; i < checks.length; i++) {
         }
    });
 
-} 
+} */ 
 
+function fnc(){ 
+        document.getElementById('setzs').style.display='inline-block';
+			  if(this.name=='zf'){
+			     // this.options , selectedIndex
+				  zfid=[]; 
+				 var selects = document.getElementById('@zf').getElementsByTagName('select');
+                  selectsArr=Array.prototype.slice.call(selects);
+				  selectsArr.forEach(function(e,i){  
+					  var index = e.options[e.selectedIndex].dataset.arr;
+					  if(index*1>1){  
+						 zfid.push(index+'|'+(e.selectedIndex*1+1)); 
+					  }  
+					  
+				 })
+				 var sind = (this.dataset.ind);
+				 var ind = this.selectedIndex;
+				 var eOpt = this.options[ind]; 
+				     //console.log(eOpt.dataset.arr,ind);
+					currentzf[sind] =  ind;
+					currentzfClick(ind);
+          ind=ind>=1?ind-1:-1; 
+          if(ind>=0){
+
+				  	radio[ind].checked  = true;
+          }
+          else{
+              ind = 0;
+              radio[ind].checked  = false; 
+          
+          }
+					return
+			  }else{
+				 zsid=[],zsArr=[]; 
+				 document.getElementById('sell').innerHTML ='';
+				 var selects = document.getElementById('zslist').getElementsByTagName('select');
+                  selectsArr=Array.prototype.slice.call(selects);
+				  selectsArr.forEach(function(e,i){  
+					  var index = e.options[e.selectedIndex].id;
+					  if(index*1>=1){  
+						 zsid.push(index); 
+						 var _zsArr = []; 
+						 var _sTit = [,,'铁','智','诡','无','攻','集','远','水'];
+						 var str = '';
+						 if(zfid&&zfid.length){
+						     var _d = o[index];
+							 str+="<dt>"+_d[1]+"</dt>";
+                             for (var i=0;i< zfid.length;i++ ){
+                                 spt = (zfid[i].split('|'))
+                                 str+="<dd data-spet="+spt[0]+" data-num="+_d[spt[1]]+">"+_sTit[spt[1]]+''+_d[spt[1]]+"</dd>"; 
+								 _zsArr.push(_d[spt[1]]);
+                             }
+							 str+="";
+						 }
+						 zsArr.push(_zsArr);
+						 oStr = document.createElement('dl');
+						 oStr.innerHTML = str; 
+						 zsArrCount =[]; 
+						 for (var m =0;m<zsArr[0].length;m++ ){
+							 // console.log(zsArr[m],'mm') 
+                zsArrCount.push([]);
+
+             }
+                for (var m =0;m<zsArr.length;m++ ){
+							  for (var n =0;n<zsArr[m].length;n++ ){ 
+                     zsArrCount[n].push(zsArr[m][n]);
+							 }} 
+
+                 _zsArrCount={};
+                 _zsArrMin={};
+                 for (var m =0;m<zsArrCount.length;m++ ){
+                     _zsArrCount[m] =0;
+                     _zsArrMin[m] = Math.min.apply(null,zsArrCount[m]);
+
+                 for (var n =0;n<zsArrCount[m].length;n++ ){ 
+                      _zsArrCount[m]+=zsArrCount[m][n]*1;
+               }} 
+
+						 document.getElementById('sell').appendChild(oStr);
+					  }  
+					  
+				 })
+
+           //统计
+
+              var str2 ='';
+              str2+="<dt style='color:pink'>预估战力</dt>";
+             
+              for (m in _zsArrMin){
+                  var 
+                  _bei = zfid[m].split('|')[0],_min = _zsArrMin[m],_step = _min>11400?1.5:_min>9700?1.6:_min>7000?1.7:_min>5000?1.8:_min>4800?2.1:2.4; 
+                  console.log(_min,_step,_zsArrCount[m],_bei);   
+                  str2+="<dd style='color:pink'>"+ (zsArr.length>1 ? _zsArrCount[m]*_bei/_step : _zsArrCount[m]*_bei ).toFixed(0)+"</dd>"; 
+              }
+             str2+=""; 
+             oStr = document.createElement('dl');
+             oStr.innerHTML = str2; 
+             document.getElementById('selltxt').innerHTML=':';
+             document.getElementById('sell').appendChild(oStr);
+              
+			 }
+		  };
 //setzs list 
 
 function creatSetzshtml(_sort){
+	if(_sort==0)
+		return;
+	_sort =_sort+1;
 	              //2 ............                   9
 	var sTit = [,,'铁','智','诡','无','攻','集','远','水'];
 	var setzs = document.getElementById('setzs');
@@ -1458,8 +1632,22 @@ function creatSetzshtml(_sort){
  
 }
 
+
 //cbtn change
-for (var i = 0; i < checks.length; i++) { 
+function currentzfClick(ind){
+
+     zstype=[];
+     zsid =[]; //重置武将
+     //pngWarp.innerHTML='<center><dl><dt>战力计算规则</dt><dd><p>1、<b style="color:red">单武将出征 = (预估战力*加成倍数) </b></p></dd><dd><p>2、<b style="color:red">多武将出征 = (最低战力*武将数*加成倍数)</b><dd></dl><dl><b  style="color:red">最终预估战力 > 敌方</b>就赢了, 推荐优选一种加成高的战术出征<br/>（PS：每次出征武将战力会波动 计算会有误差 结果仅供查考）</dd></dl></center><hr/>';
+
+      count(zsid,zstype);
+      pngWarp.innerHTML+='<img width="100%" height="auto"  src="'+pngtit+pngData[ind+1]+'">'; 
+      ;creatSetzshtml(ind)
+     
+       
+
+}
+/*for (var i = 0; i < checks.length; i++) { 
    addEvent(checks[i],'change',function(){
    	//console.log(11111)
      zstype=[];
@@ -1488,7 +1676,8 @@ for (var i = 0; i < checks.length; i++) {
       };
 
    });
-}  
+}   
+*/
 
 //button jiacheng
 stepArr=[];
@@ -1497,7 +1686,8 @@ for (var i = 0; i < btns.length; i++) {
    addEvent(btns[i],'click',function(e){ 
         //加成战力 取最低最高[min.max]
         // count(zsid,zstype,this.name);
-        if(this.dataset.step*1){
+       /*
+		if(this.dataset.step*1){
         	this.dataset.step =0;
         	this.style.color = 'black';
         }else{	        	
@@ -1513,16 +1703,61 @@ for (var i = 0; i < btns.length; i++) {
         } 
 
         count(zsid,zstype,stepArr);
-   });
+*/ 
+});
     
 
 } 
 pngWarp=document.createElement('h4');
-pngWarp.innerHTML = '<b style="font-size:14px">v1.02优化：勾选战法 提示优选武将图、武将将按照当前战法显示出详情战力';
+pngWarp.id = 'update';
+pngWarp.innerHTML = '<b style="font-size:14px">v1.03优化：分开统计战力 增加对应战力详情';
 document.body.appendChild(pngWarp);
  </script>
  <script>
+//radio  zsradio
+for (var i = 0; i < radio.length; i++) { 
+   var setp = '';	 
+   addEvent(radio[i],'click',function(e){ 
+	   console.log(this.value)
+       creatSetzshtml(this.value*1-1);
+   });
+};; 
+function addzs(type){
+	 var oZslist = document.getElementById('zslist'); 
+	 var oSet = oZslist.getElementsByTagName('select');
+	 var len = (oSet.length); 
+ if(type){
+   //++
+    if(len==4)
+	 {
+		return;	
+	 }
+     var node= document.createElement('select')
+       node.name ='zs';
+	   node.innerHTML = oSet[0].innerHTML; 
+       oZslist.appendChild(node); 
+	   for (var i = 0; i < selectsAll.length; i++) { 
+		   //for循环是立即执行，for循环内的事件不立即执行
+           addEvent(selectsAll[i],'change',fnc);
+        }
+ }else{
+	 if(len==1)
+	 {
+		return;	
+	 }
+	  node = oZslist.lastElementChild || oZslist.lastChild;
+      oZslist.removeChild(node);
+ }
 
+  addzs2.style.display = 'inline-block';
+  if(len == 2&&type==0){
+   addzs1.style.display = 'inline-block';
+   addzs2.style.display = 'none';
+  }else if(len == 3){
+   addzs2.style.display = 'inline-block';
+   addzs1.style.display = 'none';
+  }
+}
  </script>
 </html>
 
